@@ -32,7 +32,7 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public class TwitterCrawler {
 
-    private static final int MAX_TIME = 20;
+    private static final int MAX_TIME = 1;
 
     private String[] keywords = null;
 

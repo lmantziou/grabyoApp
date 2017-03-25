@@ -55,6 +55,7 @@ public class tweetService {
             if (hashtags.length() > 1) {
                 keywords = hashtags.split(",");
             }
+            System.out.println("kyword "+hashtags);
             crawler = new TwitterCrawler(keywords, conf);
 
             total = crawler.stream();

@@ -7,16 +7,20 @@
 var baseUrl = "rest/";
 
 
-function globalInit(){
-      var hashtag = "#EU60, #SurvivorGR";
-        $.getJSON(baseUrl+"getCountTweets?hashtag=" + hashtag , function(data) {
+function globalInit() {
+    var hashtag = "#SurvivorGR";
+
+    var encodedHashtag = encodeURIComponent(hashtag);
+
+    $.getJSON(baseUrl + "getCountTweets/gett?hashtag=" + encodedHashtag, function (data) {
 
         if (data !== null) {
-            console.log("data ",JSON.stringify(data));
+            console.log("data ", JSON.stringify(data));
 
         }
     });
-};
+}
+;
 
 
 //$(function () {
