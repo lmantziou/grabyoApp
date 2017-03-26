@@ -21,17 +21,26 @@
         <div id="container" style="height: 400px; min-width: 310px"></div>
 
 
-        <script type="text/javascript">
-            /****************** Global js vars ************************/
+        <div>
+            <label for="commentLabel">Add your hashtags:</label>
+            <input type="text" name="hash" id="hash" value="">
+            
+             <a id="stopInterval" href="#"class="" >Stop streaming</a> 
+                
 
+        </div>
 
-            /* Just call the initialization function when the page loads */
-            $(window).load(function () {
-                globalInit();
-
-            });
-
-        </script>
+        <!--  <script type="text/javascript">
+              /****************** Global js vars ************************/
+  
+  
+              /* Just call the initialization function when the page loads */
+              $(window).load(function () {
+                  globalInit();
+  
+              });
+  
+          </script>-->
 
     </body>
 </html>
