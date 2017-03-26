@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0"/>
 
         <link rel="stylesheet" href="css/my.css" />
-        <title>Grab Live Tweets</title>
+        <title>Grab TV Live Tweets</title>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
         <script src="https://code.highcharts.com/stock/highstock.js"></script>
@@ -18,17 +18,17 @@
         <script src = "js/realTimeDiagram.js" ></script> 
     </head>
     <body>
-        <div id="container" style="height: 400px; min-width: 310px"></div>
-
-
-        <div>
-            <label for="commentLabel">Add your hashtags:</label>
-            <input type="text" name="hash" id="hash" value="">
-            
-             <a id="stopInterval" href="#"class="" >Stop streaming</a> 
-                
-
+        <div class="loader" id ="loader">
+            <div class="loader-icon"></div>
         </div>
+        <header>
+            <h1>
+                Velocity Twitter Graph
+                <span class="hashtag"></span>
+            </h1>
+        </header>
+        <div id="container" class="container"></div>
+
 
         <!--  <script type="text/javascript">
               /****************** Global js vars ************************/

@@ -13,6 +13,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import twitter4j.TwitterException;
 import twitter4j.conf.Configuration;
 
@@ -36,8 +37,8 @@ public class tweetService {
      * @return
      */
     @GET
-    @Path("/gett")
-    @Produces("application/json")
+   
+    @Produces(MediaType.APPLICATION_JSON)
     public int getTotalNumTweets(@QueryParam(value = "hashtag") String hashtags) {
         //************************ Variables *************************
         TwitterClient twitterClient = new TwitterClient();

@@ -78,7 +78,7 @@ public class TwitterCrawler {
         final List<Status> collected = new ArrayList<Status>(20);
         while (timeNow < afterOneMin) {
             status = statuses.take();
-//            System.out.println("text/10 "+status.getText() );
+            System.out.println("date "+status.getCreatedAt() );
             tweetCount++;
             timeNow = System.currentTimeMillis();
            
@@ -86,7 +86,7 @@ public class TwitterCrawler {
 
         //close streaming
         twitterStream.shutdown();
-
+        twitterStream.clearListeners();
         return tweetCount;
 
     }//end stream

@@ -1,16 +1,16 @@
 var baseUrl = "rest/";
-
+var hashtag = "#SurvivorGR";
+var test = true;
 $(document).ready(function () {
+    
+    $(".hashtag").html(hashtag);
 
-var hash = $('#hash').val();
-
-
-  $('#stopInterval').click(function() {
-      console.log("stop interval"); 
-      clearInterval(streamingTweets);
+    $('#stopInterval').click(function () {
+        console.log("stop interval");
+        clearInterval(streamingTweets);
     });
 
-console.log("hash "+hash);
+
     Highcharts.setOptions({
         global: {
             useUTC: false
@@ -22,46 +22,47 @@ console.log("hash "+hash);
             type: 'spline',
             animation: Highcharts.svg, // don't animate in old IE
             marginRight: 10,
+           
             events: {
                 load: function () {
-
                     // set up the updating of the chart each second
                     var series = this.series[0];
-                   streamingTweets =  setInterval(function () {
+                    
+                                       
+                    streamingTweets = setInterval(function () {
                         console.log("interval called");
-
-                        var hashtag = "#SurvivorGR";
-
                         var encodedHashtag = encodeURIComponent(hashtag);
 
-                        $.getJSON(baseUrl + "getCountTweets/gett?hashtag=" + encodedHashtag, function (data) {
+                        $.getJSON(baseUrl + "getCountTweets?hashtag=" + encodedHashtag, function (data) {
 
                             if (data !== null) {
+                                  document.getElementById("loader").style.display = "none";
                                 console.log("data ", JSON.stringify(data));
 
                             }
-                        
                         var x = (new Date()).getTime(), // current time
-                                y = data;
+                                    y = data;
+                               
                         series.addPoint([x, y], true, true);
-                        
+
                         });
-                        
+
                     }, 60000);
                 }
             }
         },
-        title: {
-            text: 'Live random data'
+           title: {
+            text: ''
         },
         xAxis: {
             type: 'datetime',
-            tickPixelInterval: 150
+            tickPixelInterval: 10
         },
         yAxis: {
             title: {
                 text: 'Value'
             },
+             tickPixelInterval: 35,
             plotLines: [{
                     value: 0,
                     width: 1,
@@ -82,14 +83,14 @@ console.log("hash "+hash);
             enabled: false
         },
         series: [{
-                name: 'Random data',
+                name: 'Streaming data from Twitter',
                 data: (function () {
                     // generate an array of random data
                     var data = [],
                             time = (new Date()).getTime(),
                             i;
 
-                    for (i = -3; i <= 0; i += 1) {
+                    for (i = -2; i <= 0; i += 1) {
                         data.push({
                             x: time + i * 1000,
                             y: 0
@@ -99,6 +100,6 @@ console.log("hash "+hash);
                 }())
             }]
     });
-    
+
 
 }); //end $(document).ready
