@@ -17,7 +17,7 @@ $(document).ready(function () {
         }
     });
 
-    Highcharts.chart('container', {
+    Highcharts.chart('container-chart', {
         chart: {
             type: 'spline',
             animation: Highcharts.svg, // don't animate in old IE

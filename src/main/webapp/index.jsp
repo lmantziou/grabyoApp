@@ -27,20 +27,18 @@
                 <span class="hashtag"></span>
             </h1>
         </header>
-        <div id="container" class="container"></div>
-
-
-        <!--  <script type="text/javascript">
-              /****************** Global js vars ************************/
-  
-  
-              /* Just call the initialization function when the page loads */
-              $(window).load(function () {
-                  globalInit();
-  
-              });
-  
-          </script>-->
+    
+        <div class="container">
+            <div id="container-chart" class="container-chart"></div>
+        
+            <button class="stop-btn">Stop streaming</button>
+        </div>
+            
+        <footer>
+            <p>The above Velocity Twitter Graph is part of the project for the studio video editor of the Grabyo platform. </p>
+            <p>You can find a detailed documentation in <a href="#">Github</a>.</p>
+            <p>Eleni Mantziou, 2017</p>
+        </footer>
 
     </body>
 </html>
