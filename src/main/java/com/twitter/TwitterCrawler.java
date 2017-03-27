@@ -5,8 +5,6 @@
  */
 package com.twitter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import twitter4j.FilterQuery;
@@ -29,22 +27,27 @@ public class TwitterCrawler {
 
     private final BlockingQueue<Status> statuses = new LinkedBlockingQueue<Status>();
 
-    private TwitterStream twitterStream;
+    private int interval;
+    private final StatusListener listener = new StreamStatusListener();
+
+    private final TwitterClient twitterClient = new TwitterClient();
+
+    private final Configuration conf = twitterClient.getConfiguration();
+
+    private final TwitterStream twitterStream = new TwitterStreamFactory(conf).getInstance();
 
     /**
      *
      * @param keywords
-     * @param conf
+     * @param interval
      */
-    public TwitterCrawler(String[] keywords, Configuration conf) {
+    public TwitterCrawler(String[] keywords, int interval) {
         //************************ Initialize Variables *************************
         this.keywords = keywords;
 
-        twitterStream = new TwitterStreamFactory(conf).getInstance();
-
-        StatusListener listener = new StreamStatusListener();
-        twitterStream = new TwitterStreamFactory(conf).getInstance();
+        this.interval = interval;
         twitterStream.addListener(listener);
+        
 
     }
 
@@ -73,20 +76,22 @@ public class TwitterCrawler {
         }
 
         long timeNow = System.currentTimeMillis();
-        long afterOneMin = timeNow + 1 * 60 * 1000;
-        
-        final List<Status> collected = new ArrayList<Status>(20);
+        long afterOneMin = timeNow + interval * 1000;
+
+//long afterOneMin = timeNow * 10000;
         while (timeNow < afterOneMin) {
             status = statuses.take();
-            System.out.println("date "+status.getCreatedAt() );
+//            System.out.println("date " + status.getCreatedAt());
             tweetCount++;
             timeNow = System.currentTimeMillis();
-           
+
         }
 
         //close streaming
         twitterStream.shutdown();
         twitterStream.clearListeners();
+        twitterStream.cleanUp();
+
         return tweetCount;
 
     }//end stream
@@ -95,7 +100,6 @@ public class TwitterCrawler {
 
         @Override
         public void onStatus(Status status) {
-            System.out.println("status " + status.getText());
             statuses.offer(status); // Add received status to the queue
         }
 

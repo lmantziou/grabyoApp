@@ -8,7 +8,6 @@ package com.twitter.rest;
 import com.twitter.TwitterClient;
 import com.twitter.TwitterCrawler;
 import java.net.URISyntaxException;
-import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -23,9 +22,10 @@ import twitter4j.conf.Configuration;
  */
 @Path("getCountTweets")
 public class tweetService {
-
+    
     /**
      * Creates a new instance of DummyResource
+     *
      * @throws java.net.URISyntaxException
      */
     public tweetService() throws URISyntaxException {
@@ -34,15 +34,13 @@ public class tweetService {
     /**
      *
      * @param hashtags
+     * @param interval
      * @return
      */
     @GET
-   
     @Produces(MediaType.APPLICATION_JSON)
-    public int getTotalNumTweets(@QueryParam(value = "hashtag") String hashtags) {
+    public int getTotalNumTweets(@QueryParam(value = "hashtag") String hashtags, @QueryParam(value = "interval") String interval) {
         //************************ Variables *************************
-        TwitterClient twitterClient = new TwitterClient();
-        Configuration conf = twitterClient.getConfiguration();
 
 //        String[] keywords = {"#championsleague", "#ManchesterUnited"};
 //        String[] keywords = {"#EU60", "#SurvivorGR"};
@@ -56,8 +54,8 @@ public class tweetService {
             if (hashtags.length() > 1) {
                 keywords = hashtags.split(",");
             }
-            System.out.println("kyword "+hashtags);
-            crawler = new TwitterCrawler(keywords, conf);
+            System.out.println("kyword " + hashtags);
+            crawler = new TwitterCrawler(keywords, Integer.parseInt(interval));
 
             total = crawler.stream();
         } catch (Exception e) {
@@ -75,7 +73,7 @@ public class tweetService {
 
 //        String[] keywords = {"#championsleague", "#ManchesterUnited"};
         String[] keywords = {"#EU60", "#SurvivorGR"};
-        TwitterCrawler crawler = new TwitterCrawler(keywords, conf);
+        TwitterCrawler crawler = new TwitterCrawler(keywords, 20);
         int total = crawler.stream();
         System.out.println("total " + total);
 
