@@ -35,7 +35,7 @@ public class TwitterCrawler {
     private final Configuration conf = twitterClient.getConfiguration();
 
     private final TwitterStream twitterStream = new TwitterStreamFactory(conf).getInstance();
-
+    private  FilterQuery query = new FilterQuery();
     /**
      *
      * @param keywords
@@ -48,7 +48,7 @@ public class TwitterCrawler {
         this.interval = interval;
         twitterStream.addListener(listener);
         
-
+        
     }
 
     /**
@@ -58,7 +58,7 @@ public class TwitterCrawler {
      */
     public int stream() throws TwitterException, InterruptedException {
         //************************ Variables *************************
-        FilterQuery query = new FilterQuery();
+       
 
         boolean sample = true;
         int tweetCount = 0;
@@ -90,8 +90,7 @@ public class TwitterCrawler {
         //close streaming
         twitterStream.shutdown();
         twitterStream.clearListeners();
-        twitterStream.cleanUp();
-
+        
         return tweetCount;
 
     }//end stream

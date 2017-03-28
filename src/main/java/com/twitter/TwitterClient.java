@@ -43,7 +43,7 @@ public class TwitterClient {
                 .setOAuthAccessToken(OAUTHACCESSTOKEN)
                 .setOAuthAccessTokenSecret(OAUTHACCESSTOKENSECRET);
         Configuration configuration = cb.build();
-
+        
         return configuration;
 
     }
