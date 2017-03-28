@@ -1,12 +1,14 @@
 $(function () {
     var chart;
     var baseUrl = "rest/";
-    var hashtag = "#SurvivorGR";
+//    var hashtag = "#SurvivorGR";
+var hashtag = "#poundcoin";
     var interval = 10;
-     var streamingTweets;
+    var sinceID = 0;
+    var streamingTweets;
     $(document).ready(function () {
-         $(".hashtag").html(hashtag);
-         
+        $(".hashtag").html(hashtag);
+
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'container-chart',
@@ -14,7 +16,6 @@ $(function () {
                 animation: Highcharts.svg, // don't animate in old IE
                 marginRight: 10
             },
-          
             title: {
                 text: ''
             },
@@ -54,22 +55,28 @@ $(function () {
     });
 
 
-     streamingTweets = setInterval(function () {
+    streamingTweets = setInterval(function () {
         console.log("interval called");
         var encodedHashtag = encodeURIComponent(hashtag);
-        $.getJSON(baseUrl + "getCountTweets?hashtag=" + encodedHashtag+"&interval="+interval, function (data) {
+
+//pass sinceID as param
+//        $.getJSON(baseUrl + "getCountTweets?hashtag=" + encodedHashtag+"&interval="+interval, function (data) {
+//        
+        $.getJSON(baseUrl + "getCountTweets?hashtag=" + encodedHashtag + "&interval=" + interval + "&sinceID=" + sinceID, function (data) {
 //
             if (data !== null) {
                 document.getElementById("loader").style.display = "none";
                 console.log("data ", JSON.stringify(data));
+                //update sinceID in request
+                sinceID = data.sinceID;
             }
             var shift = chart.series[0].data.length > 20;
             var x = (new Date()).getTime(), // current time
-                    y = data;
+                    y = data.count;
 //                         y = Math.random();
             chart.series[0].addPoint([x, y], true, shift);
         });
-    }, interval*1000);
+    }, interval * 1000);
 
 
     chart = Highcharts.setOptions({

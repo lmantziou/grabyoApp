@@ -7,6 +7,7 @@ package com.twitter.rest;
 
 import com.twitter.TwitterClient;
 import com.twitter.TwitterCrawler;
+import com.twitter.model.TwitterApiResponse;
 import java.net.URISyntaxException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -35,13 +36,15 @@ public class tweetService {
      *
      * @param hashtags
      * @param interval
+     * @param sinceID
      * @return
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public int getTotalNumTweets(@QueryParam(value = "hashtag") String hashtags, @QueryParam(value = "interval") String interval) {
+    public TwitterApiResponse getTotalNumTweets(@QueryParam(value = "hashtag") String hashtags, @QueryParam(value = "interval") String interval,
+            @QueryParam(value = "sinceID") String sinceID) {
         //************************ Variables *************************
-
+        TwitterApiResponse response = new TwitterApiResponse();
 //        String[] keywords = {"#championsleague", "#ManchesterUnited"};
 //        String[] keywords = {"#EU60", "#SurvivorGR"};
         String[] keywords = {};
@@ -57,27 +60,36 @@ public class tweetService {
             System.out.println("kyword " + hashtags);
 //            crawler = new TwitterCrawler(keywords, Integer.parseInt(interval));
 
-            crawler = new TwitterCrawler(hashtags, Integer.parseInt(interval));
+            crawler = new TwitterCrawler(hashtags, Integer.parseInt(interval),new Long(sinceID));
 
-            total = crawler.stream();
+//            total = crawler.stream();
+            response = crawler.stream();
         } catch (Exception e) {
 
         }
 
-        return total;
+//        return total;
+return response;
 
     }
 
     public static void main(String args[]) throws TwitterException, InterruptedException {
-
+        TwitterApiResponse response = new TwitterApiResponse();
 //        TwitterClient twitterClient = new TwitterClient();
 //        Configuration conf = twitterClient.getConfiguration();
 //        String[] keywords = {"#championsleague", "#ManchesterUnited"};
 //        String[] keywords = {"#EU60", "#SurvivorGR"};
-        String keywords = "#EU60,#SurvivorGR";
-        TwitterCrawler crawler = new TwitterCrawler(keywords, 20);
-        int total = crawler.stream();
-        System.out.println("total " + total);
+
+// long timeNow = System.currentTimeMillis();
+//        long afterOneMin = timeNow + (10 * 1000);
+//        
+//        System.out.println("now "+timeNow+" after "+afterOneMin);
+//        String keywords = "#EU60,#SurvivorGR";
+        String keywords = "#SurvivorGR";
+//        TwitterCrawler crawler = new TwitterCrawler(keywords, 10,new Long("846706858488451072"));
+        TwitterCrawler crawler = new TwitterCrawler(keywords, 10, 0);
+        response = crawler.stream();
+        System.out.println("total " + response.getCount());
 
     }//end main
 }//
