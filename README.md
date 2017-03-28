@@ -46,6 +46,16 @@ The project was implemented in Netbeans, using Java 8, Apache Tomcat 7 and Xampp
 
 # Test cases
 
+We tested the application with many hashtags, such as 
+- #SurvivorGR (viral in greece with hundreds tweets)
+- #EU60
+- #CL
+- #ManUnited
+- #PremierLeague etc.
 
+### SurvivorGR
+![alt tag](src/main/webapp/images/SurvivorGr1.png)
 
-
+![alt tag](src/main/webapp/images/SurvivorGr2.png)
+### poundCoin
+![alt tag](src/main/webapp/images/poundCoin.png)
