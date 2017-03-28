@@ -1,4 +1,3 @@
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -36,7 +35,7 @@
             
         <footer>
             <p>The above Velocity Twitter Graph is part of the project for the studio video editor of the Grabyo platform. </p>
-            <p>You can find a detailed documentation in <a href="#">Github</a>.</p>
+            <p>You can find a detailed documentation in <a href="https://github.com/lmantziou/grabyoApp">Github</a>.</p>
             <p>Eleni Mantziou, 2017</p>
         </footer>
 

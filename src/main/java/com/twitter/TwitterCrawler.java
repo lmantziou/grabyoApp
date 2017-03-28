@@ -7,32 +7,24 @@ package com.twitter;
 
 import com.twitter.model.TwitterApiResponse;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
-import twitter4j.FilterQuery;
 import twitter4j.Query;
 import twitter4j.QueryResult;
-import twitter4j.StallWarning;
 import twitter4j.Status;
-import twitter4j.StatusDeletionNotice;
-import twitter4j.StatusListener;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
-import twitter4j.TwitterStream;
-import twitter4j.TwitterStreamFactory;
 import twitter4j.conf.Configuration;
 
 /**
+ * Class that provides the main implementation of the twitter crawler. Connects
+ * with the REST API and search tweets using specific keywords every couple of
+ * seconds.
  *
  * @author lenaki_7
  */
 public class TwitterCrawler {
 
     private String keywords = null;
-
-    private final BlockingQueue<Status> statuses = new LinkedBlockingQueue<Status>();
 
     private int interval;
 
@@ -41,7 +33,7 @@ public class TwitterCrawler {
     private final Configuration conf = twitterClient.getConfiguration();
 
     private final Twitter twitter = new TwitterFactory(conf).getInstance();
-
+    //Tweet id that is used to search since the last time the timeline was processed.
     private long sinceID;
 
     /**
@@ -54,6 +46,7 @@ public class TwitterCrawler {
         this.keywords = keywords;
 
         this.interval = interval;
+
         this.sinceID = sinceID;
     }
 
@@ -66,22 +59,18 @@ public class TwitterCrawler {
         //************************ Variables *************************
         TwitterApiResponse response = new TwitterApiResponse();
         long timeNow = System.currentTimeMillis();
-        long afterOneMin = timeNow + (interval * 1000);
+        long afterInterval = timeNow + (interval * 1000);
+        int countTweets = 0;
+        //define the tweet id that the application should read relative to the IDs of Tweets it has already processed
+        long maxID = 0;
+        ArrayList<Status> tweets = new ArrayList<Status>();
 
         Query query = new Query(keywords);
 
-//        long sinceID = 0;
+        //************************ Action *************************
         //max 450 calls in 15 mins -->30/min, 5 calls/10 secs
-        int numberOfTweets = 100;
-        ArrayList<Status> tweets = new ArrayList<Status>();
-        int count = 0;
-        long maxID = 0;
-        while (timeNow < afterOneMin) {
-//        while (tweets.size() < numberOfTweets) {
+        while (timeNow < afterInterval) {
             try {
-
-                //************************
-                // we get in request the sinceID 
                 if (sinceID != 0) {
                     query.setSinceId(sinceID);
                 }
@@ -90,43 +79,28 @@ public class TwitterCrawler {
                     query.setMaxId(maxID);
                 }
 
-                //*************************
                 query.setResultType(Query.ResultType.recent);
                 query.setCount(100);
                 QueryResult result = twitter.search(query);
                 tweets.addAll(result.getTweets());
 
                 if (tweets.size() == 100) {
-
-                    System.out.println("==100");
-                    System.out.println("sinceID " + sinceID);
-                    count += tweets.size();
+                    countTweets += tweets.size();
                     maxID = tweets.get(tweets.size() - 1).getId() - 1;
                 } else {
-                    System.out.println("not ==100");
-                    count += tweets.size();
+                    countTweets += tweets.size();
                     break;
                 }
-
-                System.out.println("Gathered " + tweets.size() + " tweets" + "\n");
                 timeNow = System.currentTimeMillis();
             } catch (TwitterException te) {
                 System.out.println("Couldn't connect: " + te);
             }
-
-            System.out.println("size " + tweets.size());
         }
 
         sinceID = tweets.get(0).getId();
-        System.out.println("sinceID out " + sinceID);
-
-//        for (int i = 0; i < tweets.size(); i++) {
-//            Status t = (Status) tweets.get(i);
-//
-//            System.out.println("created " + t.getCreatedAt() + " id " + t.getText());
-//        }
-        response.setCount(count);
+        response.setCount(countTweets);
         response.setSinceID(sinceID);
+
         return response;
     }//end stream
 

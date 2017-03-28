@@ -10,7 +10,10 @@ import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
 /**
- *
+ * 
+ * Class that logins and authenticates using twitter app credentials
+ * A configuration builder is constructed to let app make calls in twitter
+ * using twitter4j library
  * @author lenaki_7
  */
 public class TwitterClient {
@@ -22,14 +25,12 @@ public class TwitterClient {
     private static final String OAUTHACCESSTOKEN;
     private static final String OAUTHACCESSTOKENSECRET;
 
-   
-
     static {
 
         RESOURCEBUNDLE = ResourceBundle.getBundle("settings");
-          OAUTHCONSUMERKEY = RESOURCEBUNDLE.getString("tw.oAuthConsumerKey");
-          OAUTHCONSECRET = RESOURCEBUNDLE.getString("tw.oAuthConsumerSecret");
-          OAUTHACCESSTOKEN = RESOURCEBUNDLE.getString("tw.oAuthAccessToken");
+        OAUTHCONSUMERKEY = RESOURCEBUNDLE.getString("tw.oAuthConsumerKey");
+        OAUTHCONSECRET = RESOURCEBUNDLE.getString("tw.oAuthConsumerSecret");
+        OAUTHACCESSTOKEN = RESOURCEBUNDLE.getString("tw.oAuthAccessToken");
         OAUTHACCESSTOKENSECRET = RESOURCEBUNDLE.getString("tw.oAuthAccessTokenSecret");
 
     }
@@ -43,7 +44,7 @@ public class TwitterClient {
                 .setOAuthAccessToken(OAUTHACCESSTOKEN)
                 .setOAuthAccessTokenSecret(OAUTHACCESSTOKENSECRET);
         Configuration configuration = cb.build();
-        
+
         return configuration;
 
     }

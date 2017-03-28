@@ -8,13 +8,16 @@ package com.twitter.model;
 import java.io.Serializable;
 
 /**
+ * Class that represents the output of the Twitter mediator service. It's the
+ * resource representation of the web service. It returns the number of tweets
+ * (count) and the tweet id (sinceID) that last time the twitter API is called.
  *
  * @author EMantziou
  */
 public class TwitterApiResponse implements Serializable {
-    
+
     private int count;
-    
+
     private long sinceID;
 
     public int getCount() {
@@ -32,7 +35,4 @@ public class TwitterApiResponse implements Serializable {
     public void setSinceID(long sinceID) {
         this.sinceID = sinceID;
     }
-    
-    
-    
 }
