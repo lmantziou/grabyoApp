@@ -22,7 +22,7 @@ import twitter4j.conf.Configuration;
  */
 @Path("getCountTweets")
 public class tweetService {
-    
+
     /**
      * Creates a new instance of DummyResource
      *
@@ -55,7 +55,9 @@ public class tweetService {
                 keywords = hashtags.split(",");
             }
             System.out.println("kyword " + hashtags);
-            crawler = new TwitterCrawler(keywords, Integer.parseInt(interval));
+//            crawler = new TwitterCrawler(keywords, Integer.parseInt(interval));
+
+            crawler = new TwitterCrawler(hashtags, Integer.parseInt(interval));
 
             total = crawler.stream();
         } catch (Exception e) {
@@ -68,11 +70,11 @@ public class tweetService {
 
     public static void main(String args[]) throws TwitterException, InterruptedException {
 
-        TwitterClient twitterClient = new TwitterClient();
-        Configuration conf = twitterClient.getConfiguration();
-
+//        TwitterClient twitterClient = new TwitterClient();
+//        Configuration conf = twitterClient.getConfiguration();
 //        String[] keywords = {"#championsleague", "#ManchesterUnited"};
-        String[] keywords = {"#EU60", "#SurvivorGR"};
+//        String[] keywords = {"#EU60", "#SurvivorGR"};
+        String keywords = "#EU60,#SurvivorGR";
         TwitterCrawler crawler = new TwitterCrawler(keywords, 20);
         int total = crawler.stream();
         System.out.println("total " + total);
