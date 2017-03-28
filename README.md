@@ -41,6 +41,9 @@ Back-end is a Java implementation using JAX-RS for implementing the RESTful web 
 
 The folder 1. contains the client for the authentication and the main implemntation of the crawler. Folder 2. (model) contains the classes that creates the resource for the web services response. Folder 3. contains the web service. 
 
+### Configuration
+The project was implemented in Netbeans, using Java 8, Apache Tomcat 7 and Xampp.
+
 # Test cases
 
 
