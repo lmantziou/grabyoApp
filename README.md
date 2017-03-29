@@ -5,7 +5,7 @@ This code is for testing purposes for Grabyo.
 # Description of the strategy
 ## Main Objectives
 
-The main scope of this challenge it to provide a solution to implemente a twitter velovcity graph for the studio video editor of grabyo platform. The graph should record the number of tweets per given time (10,20...60 seconds) for a given hashtag. The graph should update the data real-time.
+The main scope of this challenge it to provide a solution to implement a twitter velocity graph for the studio video editor of grabyo platform. The graph should record the number of tweets per given time (10,20...60 seconds) for a given hashtag. The graph should update the data real-time.
 
 ## Analysis of strategy
 
