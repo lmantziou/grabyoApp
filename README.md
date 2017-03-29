@@ -17,7 +17,7 @@ More specifically, the first time we request for tweets for a period of time (e.
 Once all data are fetched, a response is returned to the web service at it is called from the front-end. The UI takes the data and updates the graph accordingly.  
 
 # Description of the design and architecture
-This project is a Java Maven web application, that contains both the front and the back-end. It consumes a web service that retrieves data from Twitter API and return the response to front-end to present the data in the graph. 
+This project is a Java Maven web application, that contains both the front and the back-end. It consumes a web service that retrieves data from Twitter API and returns the response to front-end to present the data in the graph. 
 The path of the application is:
 ```
 IP/Domain:Port/GrabyoTwitterApp
@@ -29,11 +29,11 @@ IP/Domain:Port/GrabyoTwitterApp/rest/getCountTweets?hashtag=#ManUnited&interval=
 ```
 
 ## Front-end
-The main page of the application is the `index.jsp`, which is an html page and for providing functionality a [javascript](src/main/webapp/js/realTimeDiagram.js) code is used. Moreover, a [css](src/main/webapp/css/my.css) file is provided. 
+The main page of the application is the `index.jsp`, which has html code and to provide functionality a [javascript](src/main/webapp/js/realTimeDiagram.js) code is used. Moreover, a [css](src/main/webapp/css/my.css) file is provided. 
 The UI includes [Highcharts](http://www.highcharts.com/), in order to create the real-time twitter velocity graph. 
 
 ## Back-end
-Back-end is a Java implementation using JAX-RS for implementing the RESTful web service. More specifically, a GET method is implemented that returns a response in JSON format, that is structure using a resource which is under folder 2. Moreover, the implementation uses [twitter4j](http://twitter4j.org/en/index.html) java library for Twitter API. The structure of the code consists of the following folders:
+Back-end is a Java implementation using JAX-RS for implementing the RESTful web service. More specifically, a GET method is implemented that returns a response in JSON format, that is structured using a resource which is under folder 2. Moreover, the implementation uses [twitter4j](http://twitter4j.org/en/index.html) java library for Twitter API. The structure of the code consists of the following folders:
 
 1. [../twitter](src/main/java/com/twitter)
 2. [../twitter/model](src/main/java/com/twitter/model)
