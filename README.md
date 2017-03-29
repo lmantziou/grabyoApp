@@ -14,7 +14,7 @@ The main strategy of this implementation to retrieve real-time tweets is to simu
 
 More specifically, the first time we request for tweets for a period of time (e.g. 10 secs), we get the number of tweets and the last tweet id (sinceID) that retrieved. In the next iteration, we pass the sinceID to retrieve data generated after this id. To be able to paginate the results and retrieve more than 100 tweets (limit of REST API), if the size of fetched data equals 100 we set a maxID, the last number of the list, and we continue the loop. 
 
-Once all data are fetched, they are return as response to the web service request that is called through front-end. The UI takes the data and updates the graph accordingly.  
+Once all data are fetched, a response is returned to the web service at it is called from the front-end. The UI takes the data and updates the graph accordingly.  
 
 # Description of the design and architecture
 This project is a Java Maven web application, that contains both the front and the back-end. It consumes a web service that retrieves data from Twitter API and return the response to front-end to present the data in the graph. 
